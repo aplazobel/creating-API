@@ -5,6 +5,11 @@ from src.config import DBURL
 client = MongoClient(DBURL)
 from errorHelper import errorHelper, Error404, APIError
 from bson.json_util import dumps
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download("vader_lexicon")
+
+
 
 print(f"Connected to db {DBURL}")
 db = client.get_default_database()["dbAPI"]
@@ -20,6 +25,7 @@ def createUser(username):
     info = {"Name": username, "Messages": [], "Chats":[]}
     user = db.users.insert_one(info)
     return f'Welcome {username}!'
+
 @errorHelper
 @app.route("/chat/<chatname>/user/<username>")
 def chatCreate(chatname,username):
@@ -62,6 +68,25 @@ def chatList(chatname):
                 list1.append(sentence)      
     flat_list = [item for sublist in list1 for item in sublist]
     return dumps(flat_list)
+
+@app.route('/chat/<chatname>/sentiment')
+@errorHelper
+def getAnalysis(chatname):
+    sia = SentimentIntensityAnalyzer()
+    output = []
+    sentiment =[]
+    if db.users.count({'Chats': chatname}) == 0:
+        raise Error404 (f'This chat is not registered.')
+    else:
+        data = list(db.users.find({ 'Chats': chatname },{'_id':0,'Messages':1}))
+        lista=[]
+    for item in data:
+        for message, sentence in item.items():
+            if sentence != "":
+                lista.append(sentence)      
+    flat_list = [item for sublist in lista for item in sublist]
+    for sentence in flat_list:
+        return sia.polarity_scores(sentence)
 
 app.run("0.0.0.0", PORT, debug=True)
 
