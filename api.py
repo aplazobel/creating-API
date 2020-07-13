@@ -19,7 +19,7 @@ def first_page():
 def createUser(username):
     info = {"Name": username, "Messages": [], "Chats":[]}
     user = db.users.insert_one(info)
-
+    return f'Welcome {username}!'
 @errorHelper
 @app.route("/chat/<chatname>/user/<username>")
 def chatCreate(chatname,username):
@@ -40,7 +40,7 @@ def chatCreate(chatname,username):
 @errorHelper
 def chatAddMessage(chatname, username, message):
     if db.users.count_documents({'Name': username,'Chats': [chatname]}) == 0:
-        raise Error404 (f'<h1> This user is not registered.</h1>')
+        raise Error404 (f'This user is not registered.')
     else:
         db.users.update({'Name': username},{'$set':{"Messages": [message]}})
         return f'Thank you for your message!'
@@ -52,7 +52,7 @@ def chatAddMessage(chatname, username, message):
 def chatList(chatname):
     output = []
     if db.users.count({'Chats': chatname}) == 0:
-        raise Error404 (f'<h1> This chat is not registered.</h1>')
+        raise Error404 (f'This chat is not registered.')
     else:
         data = list(db.users.find({ 'Chats': chatname },{'_id':0,'Messages':1}))
         list1=[]
@@ -62,9 +62,6 @@ def chatList(chatname):
                 list1.append(sentence)      
     flat_list = [item for sublist in list1 for item in sublist]
     return dumps(flat_list)
-
-
-
 
 app.run("0.0.0.0", PORT, debug=True)
 
