@@ -34,7 +34,7 @@ def chatCreate(chatname,username):
     if data.count() == 0:
         raise Error404(f'This user is not registered.')
     else:
-        query = db.unique.find({'$and': [{'Name': username},{'Chats': [chatname]}]},{'_id':0})
+        query = db.users.find({'$and': [{'Name': username},{'Chats': [chatname]}]},{'_id':0})
         if query.count() == 0:
             output =  db.users.update({'Name': username},{'$set':{'Chats': [chatname]}})
             return f'Hello, {username} the new chat "{chatname}" is Created!'
