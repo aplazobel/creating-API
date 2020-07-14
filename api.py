@@ -22,8 +22,8 @@ def first_page():
 @errorHelper
 @app.route("/user/create/<username>")
 def createUser(username):
-    info = {"Name": username, "Messages": [], "Chats":[]}
-    user = db.users.insert_one(info)
+    data = {"Name": username, "Messages": [], "Chats":[]}
+    user = db.users.insert_one(data)
     return f'Welcome {username}!'
 
 @errorHelper
@@ -63,7 +63,7 @@ def chatList(chatname):
         data = list(db.users.find({ 'Chats': chatname },{'_id':0,'Messages':1}))
         list1=[]
     for item in data:
-        for message, sentence in item.items():
+        for sentence in item.items():
             if sentence != "":
                 list1.append(sentence)      
     flat_list = [item for sublist in list1 for item in sublist]
@@ -81,7 +81,7 @@ def getAnalysis(chatname):
         data = list(db.users.find({ 'Chats': chatname },{'_id':0,'Messages':1}))
         lista=[]
     for item in data:
-        for message, sentence in item.items():
+        for m, sentence in item.items():
             if sentence != "":
                 lista.append(sentence)      
     flat_list = [item for sublist in lista for item in sublist]
