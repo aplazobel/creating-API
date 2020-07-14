@@ -20,12 +20,12 @@ The process is as follows:
 
 ## Endpoints used:
 
-Endpoint 1. To create a user name: ['http://localhost:3000/user/create/<username>']
+Endpoint 1. To create a user name: ['http://localhost:3000/user/create/username']
 
-Endpoint 2. To create a chat and assign a user to that chat.: ['http://localhost:3000/chat/<chatname>/user/<username>']
+Endpoint 2. To create a chat and assign a user to that chat.: ['http://localhost:3000/chat/chatname/user/username']
 
-Endpoint 3. Add message to a user in a gorup chat: ['http://localhost:3000/chat/<chatname>/user/<username>/message/<message>']
+Endpoint 3. Add message to a user in a gorup chat: ['http://localhost:3000/chat/chatname/user/username/message/message']
 
-Endpoint 4. Get all message from a  group chat in the form of a list: ['http://localhost:3000/chat/<chatname>/list']
+Endpoint 4. Get all message from a  group chat in the form of a list: ['http://localhost:3000/chat/chatname/list']
 
-Endpoint 5. Analyse the sentiment of a group chat: ['http://localhost:3000/chat/<chatname>/sentiment']
+Endpoint 5. Analyse the sentiment of a group chat: ['http://localhost:3000/chat/chatname/sentiment']
