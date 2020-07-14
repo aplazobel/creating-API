@@ -1,4 +1,4 @@
-![https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1441,w_2562,x_287,y_31/dpr_1.5/c_limit,w_1600/fl_lossy,q_auto/v1555311956/Courtesy_of_HBO_2_eu3vht]
+![alt text](https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1441,w_2562,x_287,y_31/dpr_1.5/c_limit,w_1600/fl_lossy,q_auto/v1555311956/Courtesy_of_HBO_2_eu3vht)
 
 # API PROJECT
 ## Welcome to the ideal API to analyze the general vibe of a group chat
